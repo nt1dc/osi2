@@ -127,23 +127,24 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_to_user((struct vm_area_struct_info *) ioctl_param, vasi, sizeof(struct vm_area_struct_info));
         vfree(vasi);
     }
-    if(ioctl_num==IOCTL_GET_VM_AREA_STRUCT){
+    if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT){
         struct lab_signal_struct_data *lsigsd = vmalloc(sizeof(struct lab_signal_struct_data));
-        copy_from_user(lsigsd, (struct lab_signal_struct_data *)ioctl_param, sizeof(struct lab_signal_struct_data));
-        t = get_pid_task(find_get_pid(lsigsd->pid), PIDTYPE_PID);
-        if (t == NULL)
-        {
-            printk(KERN_ERR "task_struct with pid=%d does not exist\n", lsigsd->pid);
+        copy_from_user(lsigsd, (struct lab_signal_struct_data *) ioctl_param, sizeof(struct lab_signal_struct_data));
+        struct task_struct *task;
+        task = get_pid_task(find_get_pid(lsigsd->pid), PIDTYPE_PID);
+        if (task == NULL) {
+            printk(KERN_ERR
+            "task_struct with pid=%d does not exist\n", lsigsd->pid);
             vfree(lsigsd);
             return 2;
         };
-        lsigsd->result.flags = t->signal->flags;
-        lsigsd->result.group_exit_code = t->signal->group_exit_code;
-        lsigsd->result.leader = t->signal->leader;
-        lsigsd->result.notify_count = t->signal->notify_count;
+        lsigsd->result.flags = task->signal->flags;
+        lsigsd->result.group_exit_code = task->signal->group_exit_code;
+        lsigsd->result.leader = task->signal->leader;
+        lsigsd->result.notify_count = task->signal->notify_count;
 
-        lsigsd->result.nr_threads = t->signal->nr_threads;
-        copy_to_user((struct lab_signal_struct_data *)ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
+        lsigsd->result.nr_threads = task->signal->nr_threads;
+        copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
         vfree(lsigsd);
     }
     return 0;
