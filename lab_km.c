@@ -92,6 +92,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
 {
     printk(KERN_INFO
     "lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
+    struct task_struct *t = NULL;
     if (ioctl_param == IOCTL_GET_SIGNAL_INFO){
         struct lab_signal_struct_data *lsigsd = vmalloc(sizeof(struct lab_signal_struct_data));
         copy_from_user(lsigsd, (struct lab_signal_struct_data *) ioctl_param, sizeof(struct lab_signal_struct_data));
