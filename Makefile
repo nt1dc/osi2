@@ -1,4 +1,3 @@
-
 MODULE_NAME = lab_kernel_module
 KERNEL_DIR ?= "/lib/modules/$(shell uname -r)/build"
 
