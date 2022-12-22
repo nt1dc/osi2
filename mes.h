@@ -33,6 +33,6 @@ struct vm_area_struct_info {
     int actual_count;
     struct vm_area_pos_info vapi[MAX_COUNT_VM_AREA_STRUCTES];
 };
-#define DEVICE_NAME "lab_character_device"
+#define DEVICE_NAME "best_device_ever"
 
 #endif

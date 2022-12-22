@@ -1,4 +1,4 @@
-#include "character_dev.h"
+#include "mes.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -10,12 +10,10 @@
 #define VM_EXEC 0x00000004
 
 int main(int argc, char **argv) {
-    int fd;
 
     if (argc < 2 || (strcmp(argv[1], "help") == 0)) {
-        printf("Usage %s <PID> <PAGE-NUMBER>\n", argv[0]);
+        printf("Usage %s <PID>\n", argv[0]);
         printf("<PID> must be integer more than zero\n");
-
         return 0;
     }
     int pid = atoi(argv[1]);
@@ -26,7 +24,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    fd = open(DEVICE_NAME, 0);
+    int fd = open(DEVICE_NAME, 0);
 
     if (fd < 0) {
         printf("Can't open device file: %s\n", DEVICE_NAME);

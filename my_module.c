@@ -5,7 +5,7 @@
 #include <linux/version.h>
 #include <linux/fs.h>
 
-#include "character_dev.h"
+#include "mes.h"
 
 #include <asm/uaccess.h>
 #include <linux/list.h>
@@ -14,8 +14,8 @@
 #include <linux/vmalloc.h>
 
 MODULE_LICENSE("GPL");
-MODULE_VERSION("2.0.22");
-MODULE_AUTHOR("Uzbek");
+MODULE_VERSION("1.1.1");
+MODULE_AUTHOR("nt1dc");
 MODULE_DESCRIPTION("OS LAB2");
 
 static int lab_dev_open(struct inode *inode, struct file *file);
