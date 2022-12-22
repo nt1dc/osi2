@@ -92,18 +92,24 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
 {
     printk(KERN_INFO
     "lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
-    if (ioctl_num == IOCTL_GET_PCI_DEV) {
-
-        struct pci_dev_info *pdi = vmalloc(sizeof(struct pci_dev_info));
-        int i = 0;
-        struct pci_dev *dev = NULL;;
-        while ((dev = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, dev)) && (i < MAX_COUNT_PCI_DEV)) {
-            pdi->devices[i] = dev->device;
-            i++;
+    if (ioctl_param == IOCTL_GET_SIGNAL_INFO){
+        struct lab_signal_struct_data *lsigsd = vmalloc(sizeof(struct lab_signal_struct_data));
+        copy_from_user(lsigsd, (struct lab_signal_struct_data *) ioctl_param, sizeof(struct lab_signal_struct_data));
+        t = get_pid_task(find_get_pid(lsigsd->pid), PIDTYPE_PID);
+        if (t == NULL) {
+            printk(KERN_ERR
+            "task_struct with pid=%d does not exist\n", lsigsd->pid);
+            vfree(lsigsd);
+            return 2;
         };
-        pdi->actual_count = i - 1;
-        copy_to_user((struct pci_dev_info *) ioctl_param, pdi, sizeof(struct pci_dev_info));
-        vfree(pdi);
+        lsigsd->result.flags = t->signal->flags;
+        lsigsd->result.group_exit_code = t->signal->group_exit_code;
+        lsigsd->result.leader = t->signal->leader;
+        lsigsd->result.notify_count = t->signal->notify_count;
+
+        lsigsd->result.nr_threads = t->signal->nr_threads;
+        copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
+        vfree(lsigsd);
     }
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT) {
         struct lab_signal_struct_data *lsigsd = vmalloc(sizeof(struct lab_signal_struct_data));
