@@ -33,16 +33,13 @@ int main(int argc, char **argv) {
         exit(2);
     };
 
-    struct pci_dev_info *pdi = malloc(sizeof(struct pci_dev_info));
 
     vasi->pid = pid;
-
     ret_val = ioctl(fd, IOCTL_GET_SIGNAL_INFO, lsigsd);
     if (ret_val != 0) {
         printf("IOCTL_GET_SIGNAL_INFO failed %d: process with <PID> = %d doesn't exist\n", ret_val, lsigsd->pid);
         exit(ret_val);
     }
-
     printf("<-- SIGNAL STRUCT -->\n");
     printf("FOR SIGNAL_STRUCT WITH PID = %d\n", lsigsd->pid);
     printf("FLASG = %x\n", lsigsd->result.flags);
