@@ -69,12 +69,12 @@ int main(int argc, char **argv) {
     }
 
     for (int i = 0; i < vasi->actual_count; i++) {
-        printf("0x%0.8hx-0x%0.8hx\t", vasi->vapi[i].vm_start, vasi->vapi[i].vm_end);
+        printf("0x%0.8lx-0x%0.8lx\t", vasi->vapi[i].vm_start, vasi->vapi[i].vm_end);
         printf("%c%c%c",
                (vasi->vapi[i].permissions & VM_READ) ? 'r' : '-',
                (vasi->vapi[i].permissions & VM_WRITE) ? 'w' : '-',
                (vasi->vapi[i].permissions & VM_EXEC) ? 'x' : '-');
-        printf("\t%1d", vasi->vapi[i].rb_subtree_gap);
+        printf("\t%1lu", vasi->vapi[i].rb_subtree_gap);
         printf("\n");
     }
 
