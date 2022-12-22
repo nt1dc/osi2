@@ -46,7 +46,6 @@ int main(int argc, char **argv) {
         if (ret_val == 2) {
             printf("Can't find vm_area_struct for Process with <PID> = %d\n", vasi->pid);
         }
-
         exit(ret_val);
     }
 

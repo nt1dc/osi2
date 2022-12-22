@@ -15,18 +15,17 @@ USER_APP=user_app
 DEVICE=best_device_ever
 LAB_MAJOR_NUMBER_DEVICE=100
 
-all: module create_dev install
-user: $(USER_SRCS)
-	gcc $(USER_SRCS) -o $(USER_APP) -std=c99
+all: module create_dev install user
 module: $(KERNEL_SRCS)
 	make -C $(KERNEL_DIR) M=$(PWD) modules
-install: $(MODULE_NAME).ko
-	sudo insmod ./$(MODULE_NAME).ko
 create_dev:
 	sudo mknod $(DEVICE) c $(LAB_MAJOR_NUMBER_DEVICE) 0
-remove:
-	sudo rmmod $(MODULE_NAME)
-clean: 
+install: $(MODULE_NAME).ko
+	sudo insmod ./$(MODULE_NAME).ko
+user: $(USER_SRCS)
+	gcc $(USER_SRCS) -o $(USER_APP) -std=c99
+clean:
 	make -C $(KERNEL_DIR) M=$(PWD) clean
 	rm -f $(USER_APP)
 	rm -f $(DEVICE)
+	sudo rmmod $(MODULE_NAME)
