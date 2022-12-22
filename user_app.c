@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
         exit(2);
     };
 
-
+    struct lab_syscall_info_data *vasi = malloc(sizeof(struct lab_syscall_info_data));
     vasi->pid = pid;
     ret_val = ioctl(fd, IOCTL_GET_SIGNAL_INFO, lsigsd);
     if (ret_val != 0) {
