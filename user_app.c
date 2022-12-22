@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     vasi->pid = pid;
 
 
-    ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
+    int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
     printf("<-- VM AREA STRUCT -->\n");
     if (ret_val != 0)
     {
