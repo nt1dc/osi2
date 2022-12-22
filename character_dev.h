@@ -8,7 +8,10 @@
 #include <linux/ioctl.h>
 
 #define MAJOR_NUM 100
+#define MAX_COUNT_VM_AREA_STRUCTES 50
 
+
+#define IOCTL_GET_VM_AREA_STRUCT _IOR(MAJOR_NUM, 1, char *)
 #define IOCTL_GET_SIGNAL_INFO _IOR(MAJOR_NUM, 0, char *)
 struct lab_signal_struct {
     int nr_threads;

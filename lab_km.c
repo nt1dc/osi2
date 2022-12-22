@@ -123,7 +123,6 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         lsigsd->result.nr_threads = t->signal->nr_threads;
         copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
         vfree(lsigsd);
-        break;
     }
     return 0;
 }
