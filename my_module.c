@@ -12,11 +12,12 @@
 #include <linux/syscalls.h>
 #include <linux/pci.h>
 #include <linux/vmalloc.h>
-#include <linux/spinlock_types.h>
+
 MODULE_LICENSE("GPL");
 MODULE_VERSION("1.1.1");
 MODULE_AUTHOR("nt1dc");
 MODULE_DESCRIPTION("OS LAB2");
+DEFINE_SPINLOCK(etx_spinlock);
 
 static int lab_dev_open(struct inode *inode, struct file *file);
 
@@ -87,10 +88,7 @@ static int device_ioctl(struct inode *inode,
 static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
 #endif
 {
-    spinlock_t mr_lock = SPIN_LOCK_UNLOCKED;
-    unsigned long flags;
-    spin_lock_irqsave(&mr_lock, flags);
-    printk(KERN_INFO"lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
+    spin_lock(&etx_spinlock);
 //    if (ioctl_num == get) {
 ////        todo: ну чтобы нормально  буфер выделить
 //    }
@@ -147,7 +145,8 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
         vfree(lsigsd);
     }
-    spin_unlock_irqrestore(&mr_lock, flags);
+    spin_unlock(&etx_spinlock);
+
     return 0;
 }
 
