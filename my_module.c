@@ -110,7 +110,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         }
         vasi->size = i - 1;
         printk(KERN_INFO,"zxc \n");
-        copy_to_user((struct buff_size_info *) ioctl_param, vasi, sizeof(struct vm_area_struct_info));
+        copy_to_user((struct buff_size_info *) ioctl_param, vasi, sizeof(struct buff_size_info));
         vfree(vasi);
     }
 
