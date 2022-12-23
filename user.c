@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
     int r = ioctl(fd, IOCTL_GET_BUFF_SIZE, buffSizeInfo);
     printf("%d\n", buffSizeInfo->size);
     int bsize = buffSizeInfo->size;
-    free(buffSizeInfo);
 
     struct vm_area_struct_info *vasi = malloc(
             sizeof(struct vm_area_struct_info) + sizeof(struct vm_area_struct_info) * bsize);
