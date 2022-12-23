@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
     printf("has\n");
 
     struct vm_area_pos_info *s = vasi->vapi;
-    *s = realloc(s, sizeof(struct vm_area_pos_info) * (size));
+    *s = realloc(s, sizeof(struct vm_area_pos_info) * (bsize));
 
     vasi->pid = pid;
     printf("was here \n");
