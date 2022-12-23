@@ -12,7 +12,7 @@
 #include <linux/syscalls.h>
 #include <linux/pci.h>
 #include <linux/vmalloc.h>
-
+#include <linux/spinlock_types.h>
 MODULE_LICENSE("GPL");
 MODULE_VERSION("1.1.1");
 MODULE_AUTHOR("nt1dc");
