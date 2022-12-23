@@ -103,12 +103,10 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
             "Can't find vm_area_struct with this pid\n");
             return 2;
         }
-        printk(KERN_INFO
-        "vm area struct\n");
         struct vm_area_struct *pos = NULL;
         int i = 0;
         for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
-
+            printk(KERN_INFO,"zxc \n");
         }
         vasi->size = i - 1;
         printk(KERN_INFO,"zxc \n");
