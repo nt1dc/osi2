@@ -38,12 +38,12 @@ int main(int argc, char **argv) {
     buffSizeInfo->pid = pid;
     int r = ioctl(fd, IOCTL_GET_BUFF_SIZE, buffSizeInfo);
     printf("%d\n", buffSizeInfo->size);
-
+    int bsize = buffSizeInfo->size;
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
     printf("has\n");
 
     struct vm_area_pos_info *s = vasi->vapi;
-    increase(&s, buffSizeInfo->size);
+    increase(&s, bsize);
     vasi->pid = pid;
     printf("was here \n");
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
