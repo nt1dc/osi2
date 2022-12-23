@@ -38,11 +38,12 @@ int main(int argc, char **argv) {
     int bsize = buffSizeInfo->size;
     free(buffSizeInfo);
 
-    struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-    printf("has\n");
+    struct vm_area_struct_info *vasi = malloc(
+            sizeof(struct vm_area_struct_info) + sizeof(struct vm_area_struct_info) * bsize);
+//    printf("has\n");
 
-    struct vm_area_pos_info *s = vasi->vapi;
-    s = realloc(s, sizeof(struct vm_area_pos_info) * (bsize));
+//    struct vm_area_pos_info *s = vasi->vapi;
+//    s = realloc(s, sizeof(struct vm_area_pos_info) * (bsize));
 
     vasi->pid = pid;
     printf("was here \n");
