@@ -37,11 +37,11 @@ int main(int argc, char **argv) {
 
 
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-    printf("был тут\n");
+    printf("has\n");
     struct vm_area_pos_info *s = vasi->vapi;
-    s = realloc(vasi, sizeof(struct vm_area_pos_info) * (buffSizeInfo->size * 2));
+    s = realloc(s, sizeof(struct vm_area_pos_info) * (buffSizeInfo->size * 2));
     vasi->pid = pid;
-    printf("был тут\n");
+    printf("was here \n");
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
     printf("<-- VM AREA STRUCT -->\n");
     if (ret_val != 0) {
