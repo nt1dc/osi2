@@ -91,7 +91,9 @@ static int device_ioctl(struct inode *inode,
 static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
 #endif
 {
-    mutex_lock(&etx_mutex);
+    spinlock_t mr_lock = SPIN_LOCK_UNLOCKED;
+    unsigned long flags;
+    spin_lock_irqsave(&mr_lock, flags);
     printk(KERN_INFO"lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
 //    if (ioctl_num == get) {
 ////        todo: ну чтобы нормально  буфер выделить
@@ -152,7 +154,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
         vfree(lsigsd);
     }
-    mutex_unlock(&etx_mutex);
+    spin_unlock_irqrestore(&mr_lock, flags);
     return 0;
 }
 
@@ -178,7 +180,6 @@ int init_module() {
         "%s failed with %d\n", "Sorry, registering the character device \n", ret_val);
         return ret_val;
     }
-    mutex_init(&etx_mutex);
     return 0;
 }
 
