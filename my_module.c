@@ -184,3 +184,6 @@ int init_module() {
 void cleanup_module() {
     unregister_chrdev(MAJOR_NUM, DEVICE_NAME);
 }
+
+//proc cat devices
+// dev sudo cat kmsg
