@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     printf("has\n");
 
     struct vm_area_pos_info *s = vasi->vapi;
-    s = realloc(s, sizeof(struct vm_area_pos_info) * (buffSizeInfo->size));
+    *s = realloc(s, sizeof(struct vm_area_pos_info) * (buffSizeInfo->size));
     vasi->pid = pid;
     printf("was here \n");
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
