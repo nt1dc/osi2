@@ -88,8 +88,12 @@ static int device_ioctl(struct inode *inode,
 static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
 #endif
 {
-    printk(KERN_INFO
-    "lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
+    pthread_mutex_lock(&lock);
+    printk(KERN_INFO"lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
+    if(ioctl_num==get){
+//        todo: ну чтобы нормально  буфер выделить
+    }
+
 
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {
@@ -128,8 +132,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_from_user(lsigsd, (struct lab_signal_struct_data *) ioctl_param, sizeof(struct lab_signal_struct_data));
         struct task_struct *t = get_pid_task(find_get_pid(lsigsd->pid), PIDTYPE_PID);
         if (t == NULL) {
-            printk(KERN_ERR
-            "task_struct with pid=%d does not exist\n", lsigsd->pid);
+            printk(KERN_ERR"task_struct with pid=%d does not exist\n", lsigsd->pid);
             vfree(lsigsd);
             return 2;
         }
@@ -143,6 +146,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
         vfree(lsigsd);
     }
+    pthread_mutex_unlock(&lock);
     return 0;
 }
 
