@@ -88,10 +88,33 @@ static int device_ioctl(struct inode *inode,
 static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
 #endif
 {
-    spin_lock(&etx_spinlock);
-//    if (ioctl_num == get) {
-////        todo: ну чтобы нормально  буфер выделить
-//    }
+    if (ioctl_num == IOCTL_GET_BUFF_SIZE){
+        spin_lock(&etx_spinlock);
+        struct buff_size_info *vasi = vmalloc(sizeof(struct buff_size_info));
+        vasi->vapi = realoc(vasi->size);
+        copy_from_user(vasi, (struct buff_size_info *) ioctl_param, sizeof(struct buff_size_info));
+        struct task_struct *task = get_pid_task(find_get_pid(vasi->pid), PIDTYPE_PID);
+        if (task == NULL) {
+            pr_err("Process with <PID> = %d doesn't exist\n", vasi->pid);
+            return 1;
+        }
+
+        if (task->mm == NULL) {
+            printk(KERN_INFO
+            "Can't find vm_area_struct with this pid\n");
+            return 2;
+        }
+        printk(KERN_INFO
+        "vm area struct\n");
+        struct vm_area_struct *pos = NULL;
+        int i = 0;
+        for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
+
+        }
+        vasi->size = i - 1;
+        copy_to_user((struct buff_size_info *) ioctl_param, vasi, sizeof(struct vm_area_struct_info));
+        vfree(vasi);
+    }
 
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {

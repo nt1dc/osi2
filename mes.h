@@ -9,7 +9,7 @@
 
 #define IOCTL_GET_SIGNAL_INFO _IOR(MAJOR_NUM, 0, char *)
 #define IOCTL_GET_VM_AREA_STRUCT _IOR(MAJOR_NUM, 1, char *)
-
+#define IOCTL_GET_BUFF_SIZE _IOR(MAJOR_NUM,2,char *)
 struct lab_signal_struct {
     int nr_threads;
     int group_exit_code;
@@ -32,6 +32,10 @@ struct vm_area_struct_info {
     int pid;
     int actual_count;
     struct vm_area_pos_info vapi[MAX_COUNT_VM_AREA_STRUCTES];
+};
+struct buff_size_info {
+    int pid;
+    int size;
 };
 #define DEVICE_NAME "best_device_ever"
 

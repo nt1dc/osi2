@@ -30,11 +30,14 @@ int main(int argc, char **argv) {
         printf("Can't open device file: %s\n", DEVICE_NAME);
         exit(2);
     };
+    struct buff_size_info *buffSizeInfo = malloc(sizeof(struct buff_size_info));
+    buffSizeInfo->pid = pid;
+    struct buff_size_info ret_val = ioctl(fd, IOCTL_GET_BUFF_SIZE, buffSizeInfo);
+    buffSizeInfo->size;
 
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-
+    vasi->vapi = realloc(vasi->vapi,struct vm_area_pos_info vapi[buffSizeInfo->size]);
     vasi->pid = pid;
-
 
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
     printf("<-- VM AREA STRUCT -->\n");
