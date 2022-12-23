@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     int bsize = buffSizeInfo->size;
     free(buffSizeInfo);
 
-//    struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
+    struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
 //    printf("has\n");
 //
 //    struct vm_area_pos_info *s = vasi->vapi;
