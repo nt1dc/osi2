@@ -41,13 +41,13 @@ int main(int argc, char **argv) {
     int bsize = buffSizeInfo->size;
     free(buffSizeInfo);
 
-    struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-    printf("has\n");
-
-    struct vm_area_pos_info *s = vasi->vapi;
-    increase(&s, bsize);
-    vasi->pid = pid;
-    printf("was here \n");
+//    struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
+//    printf("has\n");
+//
+//    struct vm_area_pos_info *s = vasi->vapi;
+//    increase(&s, bsize);
+//    vasi->pid = pid;
+//    printf("was here \n");
 //    int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
 //    printf("<-- VM AREA STRUCT -->\n");
 //    if (ret_val != 0) {
