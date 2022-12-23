@@ -77,8 +77,6 @@ printk(KERN_INFO
 return
 len;
 }
-struct mutex etx_mutex;
-mutex_init(&etx_mutex);
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35))
 static int device_ioctl(struct inode *inode,
                         struct file *file,
