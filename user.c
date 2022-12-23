@@ -9,9 +9,6 @@
 #define VM_WRITE 0x00000002
 #define VM_EXEC 0x00000004
 
-void increase(struct vm_area_pos_info **data, int size) {
-    *data = realloc(*data, sizeof(struct vm_area_pos_info) * (size));
-}
 
 int main(int argc, char **argv) {
 
@@ -45,7 +42,8 @@ int main(int argc, char **argv) {
     printf("has\n");
 
     struct vm_area_pos_info *s = vasi->vapi;
-    increase(&s, bsize);
+    *s = realloc(s, sizeof(struct vm_area_pos_info) * (size));
+
     vasi->pid = pid;
     printf("was here \n");
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
