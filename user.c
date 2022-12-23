@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
     };
     struct buff_size_info *buffSizeInfo = malloc(sizeof(struct buff_size_info));
     buffSizeInfo->pid = pid;
-    printf("qwe\n");
     int r = ioctl(fd, IOCTL_GET_BUFF_SIZE, buffSizeInfo);
+    printf("qwe\n");
     printf("%s", buffSizeInfo->size);
 
 
