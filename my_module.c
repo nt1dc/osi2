@@ -36,7 +36,8 @@ static long lab_dev_ioctl(struct file *file, unsigned int cmd, unsigned long arg
 ** This function will be called when we open the Device file
 */
 static int lab_dev_open(struct inode *inode, struct file *file) {
-    printk(KERN_INFO "Device File Opened...!!!\n");
+    printk(KERN_INFO
+    "Device File Opened...!!!\n");
     return 0;
 }
 
@@ -44,14 +45,19 @@ static int lab_dev_open(struct inode *inode, struct file *file) {
 ** This function will be called when we close the Device file
 */
 static int lab_dev_release(struct inode *inode, struct file *file) {
-    printk(KERN_INFO"Device File Closed...!!!\n");
+    printk(KERN_INFO
+    "Device File Closed...!!!\n");
     return 0;
 }
 
 /*
 ** This function will be called when we read the Device file
 */
-static ssize_t lab_dev_read(struct file *filp, char __user *buf, size_t len, loff_t *off)
+static ssize_t lab_dev_read(struct file *filp, char __user
+
+*buf,
+size_t len, loff_t
+*off)
 {
 printk(KERN_INFO
 "Read Function\n");
@@ -61,9 +67,15 @@ return 0;
 /*
 ** This function will be called when we write the Device file
 */
-static ssize_t lab_dev_write(struct file *filp, const char __user *buf,size_t len, loff_t *off){
-printk(KERN_INFO "Write function\n");
-return len;
+static ssize_t lab_dev_write(struct file *filp, const char __user
+
+*buf,
+size_t len, loff_t
+*off){
+printk(KERN_INFO
+"Write function\n");
+return
+len;
 }
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35))
@@ -76,7 +88,8 @@ static int device_ioctl(struct inode *inode,
 static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
 #endif
 {
-    printk(KERN_INFO"lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
+    printk(KERN_INFO
+    "lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
 
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {
@@ -120,6 +133,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
             vfree(lsigsd);
             return 2;
         }
+        printk(KERN_INFO"signals info\n");
         lsigsd->result.flags = t->signal->flags;
         lsigsd->result.group_exit_code = t->signal->group_exit_code;
         lsigsd->result.leader = t->signal->leader;
