@@ -55,8 +55,7 @@ int main(int argc, char **argv) {
                (vasi->vapi[i].permissions & VM_READ) ? 'r' : '-',
                (vasi->vapi[i].permissions & VM_WRITE) ? 'w' : '-',
                (vasi->vapi[i].permissions & VM_EXEC) ? 'x' : '-');
-        printf("\t%1d", vasi->vapi[i].rb_subtree_gap);
-        printf("\n");
+        printf("\t%1d\n", vasi->vapi[i].rb_subtree_gap);
     }
 
     struct lab_signal_struct_data *lsigsd = malloc(sizeof(struct lab_signal_struct_data));
