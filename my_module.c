@@ -17,7 +17,6 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION("1.1.1");
 MODULE_AUTHOR("nt1dc");
 MODULE_DESCRIPTION("OS LAB2");
-struct mutex etx_mutex;
 
 static int lab_dev_open(struct inode *inode, struct file *file);
 
