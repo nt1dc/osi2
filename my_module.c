@@ -92,9 +92,9 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
 {
     mutex_lock(&etx_mutex);
     printk(KERN_INFO"lab_dev_ioctl(%p,%lu,%lu)", file, ioctl_num, ioctl_param);
-    if (ioctl_num == get) {
-//        todo: ну чтобы нормально  буфер выделить
-    }
+//    if (ioctl_num == get) {
+////        todo: ну чтобы нормально  буфер выделить
+//    }
 
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {
