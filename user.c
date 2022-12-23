@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     struct vm_area_pos_info *s = vasi->vapi;
     s = realloc(vasi, sizeof(struct vm_area_pos_info) * (buffSizeInfo->size * 2));
     vasi->pid = pid;
-    printf("был тут\n")
+    printf("был тут\n");
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
     printf("<-- VM AREA STRUCT -->\n");
     if (ret_val != 0) {
