@@ -104,14 +104,12 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         task = get_pid_task(find_get_pid(vasi->pid), PIDTYPE_PID);
         if (task == NULL) {
             pr_err("Process with <PID> = %d doesn't exist\n", vasi->pid);
-            mutex_unlock(&etx_mutex);
             return 1;
         }
 
         if (task->mm == NULL) {
             printk(KERN_INFO
             "Can't find vm_area_struct with this pid\n");
-            mutex_unlock(&etx_mutex);
             return 2;
         }
         printk(KERN_INFO
@@ -136,7 +134,6 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
             printk(KERN_ERR
             "task_struct with pid=%d does not exist\n", lsigsd->pid);
             vfree(lsigsd);
-            mutex_unlock(&etx_mutex);
             return 2;
         }
         printk(KERN_INFO
