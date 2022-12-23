@@ -9,7 +9,7 @@
 #define VM_WRITE 0x00000002
 #define VM_EXEC 0x00000004
 
-void increase(int **data, int size) {
+void increase(struct vm_area_pos_info **data, int size) {
     *data = realloc(*data, sizeof(struct vm_area_pos_info) * (size));
 }
 
