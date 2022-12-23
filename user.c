@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 
     lsigsd->pid = pid;
 
-    ret_val = ioctl(fd, IOCTL_GET_SIGNAL_INFO, lsigsd);
+    int ret_val = ioctl(fd, IOCTL_GET_SIGNAL_INFO, lsigsd);
     if (ret_val != 0) {
         printf("IOCTL_GET_SYSCALL_INFO failed %d: process with <PID> = %d doesn't exist\n", ret_val, lsigsd->pid);
         exit(ret_val);
