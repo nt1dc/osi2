@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
 
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-    vasi->vapi = realloc(*vasi->vapi, sizeof (struct vm_area_pos_info vapi[buffSizeInfo->size]));
+    *vasi->vapi = realloc(vasi->vapi, sizeof (struct vm_area_pos_info vapi[buffSizeInfo->size]));
     vasi->pid = pid;
 
     int ret_val = ioctl(fd, IOCTL_GET_VM_AREA_STRUCT, vasi);
