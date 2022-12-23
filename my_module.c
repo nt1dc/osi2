@@ -12,6 +12,7 @@
 #include <linux/syscalls.h>
 #include <linux/pci.h>
 #include <linux/vmalloc.h>
+#include <linux/mutex.h>
 
 MODULE_LICENSE("GPL");
 MODULE_VERSION("1.1.1");
