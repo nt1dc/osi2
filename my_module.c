@@ -91,7 +91,6 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
     if (ioctl_num == IOCTL_GET_BUFF_SIZE){
         spin_lock(&etx_spinlock);
         struct buff_size_info *vasi = vmalloc(sizeof(struct buff_size_info));
-        vasi->vapi = realoc(vasi->size);
         copy_from_user(vasi, (struct buff_size_info *) ioctl_param, sizeof(struct buff_size_info));
         struct task_struct *task = get_pid_task(find_get_pid(vasi->pid), PIDTYPE_PID);
         if (task == NULL) {
