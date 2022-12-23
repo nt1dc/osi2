@@ -131,8 +131,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
             "Can't find vm_area_struct with this pid\n");
             return 2;
         }
-        printk(KERN_INFO
-        "vm area struct\n");
+        printk(KERN_INFO"vm area struct\n");
         struct vm_area_struct *pos = NULL;
         int i = 0;
         for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
@@ -142,6 +141,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
             vasi->vapi[i].rb_subtree_gap = pos->rb_subtree_gap;
         }
         vasi->actual_count = i - 1;
+        printk("zxccccccccccccccccc\n");
         copy_to_user((struct vm_area_struct_info *) ioctl_param, vasi, sizeof(struct vm_area_struct_info));
         vfree(vasi);
     }
