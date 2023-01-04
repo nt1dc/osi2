@@ -90,7 +90,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
 ////        todo: ну чтобы нормально  буфер выделить
     if (ioctl_num == IOCTL_GET_BUFFER_SIZE) {
         struct buffer_size_struct_info *bufferSizeStructInfo = vmalloc(sizeof(struct buffer_size_struct_info));
-        copy_from_user(vasi, (struct bufferSizeStructInfo *) ioctl_param, sizeof(struct buffer_size_struct_info));
+        copy_from_user(bufferSizeStructInfo, (struct bufferSizeStructInfo *) ioctl_param, sizeof(struct buffer_size_struct_info));
         struct task_struct *task;
         task = get_pid_task(find_get_pid(bufferSizeStructInfo->pid), PIDTYPE_PID);
         if (task == NULL) {
@@ -110,7 +110,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
             bufferSizeStructInfo->size++;
         }
-        copy_to_user((struct bufferSizeStructInfo *) ioctl_param, vasi, sizeof(struct bufferSizeStructInfo));
+        copy_to_user((struct buffer_size_struct_info *) ioctl_param, vasi, sizeof(struct buffer_size_struct_info));
         vfree(bufferSizeStructInfo);
     }
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
