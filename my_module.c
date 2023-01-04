@@ -17,7 +17,6 @@ MODULE_LICENSE("GPL");
 MODULE_VERSION("1.1.1");
 MODULE_AUTHOR("nt1dc");
 MODULE_DESCRIPTION("OS LAB2");
-DEFINE_SPINLOCK(etx_spinlock);
 
 static int lab_dev_open(struct inode *inode, struct file *file);
 
@@ -88,10 +87,7 @@ static int device_ioctl(struct inode *inode,
 static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned long ioctl_param)
 #endif
 {
-    spin_lock(&etx_spinlock);
-//    if (ioctl_num == get) {
 ////        todo: ну чтобы нормально  буфер выделить
-//    }
 
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {
@@ -117,6 +113,8 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         for (pos = task->mm->mmap, i = 0; pos != NULL && i < MAX_COUNT_VM_AREA_STRUCTES; pos = pos->vm_next, i++) {
             vasi->vapi[i].permissions = pos->vm_flags;
             vasi->vapi[i].vm_start = pos->vm_start;
+            printk(KERN_INFO pos->vm_start);
+            printk(KERN_INFO pos->vm_end);
             vasi->vapi[i].vm_end = pos->vm_end;
             vasi->vapi[i].rb_subtree_gap = pos->rb_subtree_gap;
         }
@@ -145,7 +143,6 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_to_user((struct lab_signal_struct_data *) ioctl_param, lsigsd, sizeof(struct lab_signal_struct_data));
         vfree(lsigsd);
     }
-    spin_unlock(&etx_spinlock);
 
     return 0;
 }
