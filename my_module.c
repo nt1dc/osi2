@@ -88,7 +88,31 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
 #endif
 {
 ////        todo: ну чтобы нормально  буфер выделить
+    if (ioctl_num == IOCTL_GET_BUFFER_SIZE) {
+        struct buffer_size_struct_info *bufferSizeStructInfo = vmalloc(sizeof(struct buffer_size_struct_info));
+        copy_from_user(vasi, (struct bufferSizeStructInfo *) ioctl_param, sizeof(struct buffer_size_struct_info));
+        struct task_struct *task;
+        task = get_pid_task(find_get_pid(bufferSizeStructInfo->pid), PIDTYPE_PID);
+        if (task == NULL) {
+            pr_err("Process with <PID> = %d doesn't exist\n", bufferSizeStructInfo->pid);
+            return 1;
+        }
 
+        if (task->mm == NULL) {
+            printk(KERN_INFO
+            "Can't find vm_area_struct with this pid\n");
+            return 2;
+        }
+        printk(KERN_INFO
+        "vm area struct\n");
+        struct vm_area_struct *pos = NULL;
+        int i = 0;
+        for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
+            bufferSizeStructInfo->size++;
+        }
+        copy_to_user((struct bufferSizeStructInfo *) ioctl_param, vasi, sizeof(struct bufferSizeStructInfo));
+        vfree(bufferSizeStructInfo);
+    }
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {
         struct vm_area_struct_info *vasi = vmalloc(sizeof(struct vm_area_struct_info));
@@ -113,8 +137,10 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         for (pos = task->mm->mmap, i = 0; pos != NULL && i < MAX_COUNT_VM_AREA_STRUCTES; pos = pos->vm_next, i++) {
             vasi->vapi[i].permissions = pos->vm_flags;
             vasi->vapi[i].vm_start = pos->vm_start;
-            printk(KERN_INFO  "start : %d",pos->vm_start);
-            printk(KERN_INFO "end : %d",pos->vm_end);
+            printk(KERN_INFO
+            "start : %d", pos->vm_start);
+            printk(KERN_INFO
+            "end : %d", pos->vm_end);
             vasi->vapi[i].vm_end = pos->vm_end;
             vasi->vapi[i].rb_subtree_gap = pos->rb_subtree_gap;
         }

@@ -30,6 +30,10 @@ int main(int argc, char **argv) {
         printf("Can't open device file: %s\n", DEVICE_NAME);
         exit(2);
     };
+    struct buffer_size_struct_info *bufferSizeStructInfo = malloc(sizeof(struct buffer_size_struct_info));
+    bufferSizeStructInfo->pid = pid;
+    int r = ioctl(fd, IOCTL_GET_BUFFER_SIZE,bufferSizeStructInfo);
+    printf("%d",bufferSizeStructInfo->size);
 
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
 
