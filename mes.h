@@ -32,7 +32,7 @@ struct vm_area_pos_info {
 struct vm_area_struct_info {
     int pid;
     int actual_count;
-    struct vm_area_pos_info vapi[MAX_COUNT_VM_AREA_STRUCTES];
+    struct vm_area_pos_info vapi[];
 };
 
 struct buffer_size_struct_info {
