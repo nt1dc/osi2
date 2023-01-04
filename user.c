@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     printf("%d \n", bufferSizeStructInfo->size);
 
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-    *vasi->vapi = realloc(vasi->vapi, sizeof(struct vm_area_pos_info) * bufferSizeStructInfo->size);
+    vasi->vapi = realloc(vasi->vapi, sizeof(struct vm_area_pos_info) * bufferSizeStructInfo->size);
 
     vasi->pid = pid;
 
