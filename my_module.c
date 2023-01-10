@@ -121,7 +121,7 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         copy_from_user(vasi, (struct vm_area_struct_info *) ioctl_param, sizeof(struct vm_area_struct_info));
         struct task_struct *task;
 
-        vasi = realloc(vasi, sizeof(struct vm_area_struct_info) + vasi->actual_count * sizeof(struct vm_area_pos_info));
+        vasi = realloc(vasi, sizeof(struct vm_area_struct_info));
         task = get_pid_task(find_get_pid(vasi->pid), PIDTYPE_PID);
         if (task == NULL) {
             pr_err("Process with <PID> = %d doesn't exist\n", vasi->pid);
