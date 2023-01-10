@@ -136,8 +136,8 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         "vm area struct\n");
         struct vm_area_struct *pos = NULL;
         int i = 0;
-        for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
-//        for (pos = task->mm->mmap, i = 0; pos != NULL && i < MAX_COUNT_VM_AREA_STRUCTES; pos = pos->vm_next, i++) {
+//        for (pos = task->mm->mmap, i = 0; pos != NULL; pos = pos->vm_next, i++) {
+        for (pos = task->mm->mmap, i = 0; pos != NULL && i < MAX_COUNT_VM_AREA_STRUCTES; pos = pos->vm_next, i++) {
             vasi->vapi[i].permissions = pos->vm_flags;
             vasi->vapi[i].vm_start = pos->vm_start;
             printk(KERN_INFO
