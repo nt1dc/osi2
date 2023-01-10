@@ -117,8 +117,8 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
     }
     if (ioctl_num == IOCTL_GET_VM_AREA_STRUCT)
     {
-        struct vm_area_struct_info *vasi = vmalloc(sizeof(struct vm_area_struct_info));
-        copy_from_user(vasi, (struct vm_area_struct_info *) ioctl_param, sizeof(struct vm_area_struct_info));
+        struct vm_area_struct_info *vasi;
+        copy_from_user(&vasi, (struct vm_area_struct_info *) ioctl_param, sizeof(struct vm_area_struct_info));
         struct task_struct *task;
 
         vasi = realloc(vasi, sizeof(struct vm_area_struct_info));
