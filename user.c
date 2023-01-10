@@ -36,7 +36,9 @@ int main(int argc, char **argv) {
     printf("%d \n", bufferSizeStructInfo->size);
 
     struct vm_area_struct_info *vasi = malloc(sizeof(struct vm_area_struct_info));
-    vasi->vapi = realloc(vasi->vapi, sizeof(*(vasi->vapi)));
+//    читать тут https://stackoverflow.com/questions/22179161/invalid-use-of-flexible-array-member
+//    и в принципе все будет доне )
+    vasi->vapi = realloc(vasi->vapi, sizeof( struct vm_area_pos_info)*bufferSizeStructInfo->size);
 
     vasi->pid = pid;
 
