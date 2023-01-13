@@ -113,8 +113,8 @@ static long lab_dev_ioctl(struct file *file, unsigned int ioctl_num, unsigned lo
         for (pos = task->mm->mmap, i = 0; pos != NULL && i < MAX_COUNT_VM_AREA_STRUCTES; pos = pos->vm_next, i++) {
             vasi->vapi[i].permissions = pos->vm_flags;
             vasi->vapi[i].vm_start = pos->vm_start;
-            printk(KERN_INFO  "start : %d",pos->vm_start);
-            printk(KERN_INFO "end : %d",pos->vm_end);
+//            printk(KERN_INFO  "start : %d",pos->vm_start);
+//            printk(KERN_INFO "end : %d",pos->vm_end);
             vasi->vapi[i].vm_end = pos->vm_end;
             vasi->vapi[i].rb_subtree_gap = pos->rb_subtree_gap;
         }
